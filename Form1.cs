@@ -18,6 +18,8 @@ namespace DWMBGConfigEditor
 {
     public partial class Form1 : Form
     {
+        bool isOfficial = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -61,59 +63,98 @@ namespace DWMBGConfigEditor
             {
                 var first = "activeBlendColor=";
                 int firstL = first.Length;
+                var first1 = "inactiveBlendColor=";
+                int first1L = first1.Length;
                 var second = "activeBlendColorDark=";
                 int secondL = second.Length;
-                var third = "PrimaryBalance=";
-                int thirdL = third.Length;
-                var fourth = "Active_SecondaryBalance=";
+                var second1 = "inactiveBlendColorDark=";
+                int second1L = second1.Length;
+                var third = isOfficial ? "crossfadeTime=" : "PrimaryBalance=";
+                int thirdL = third?.Length ?? 0;
+                var fourth = isOfficial ? "activeColorBalance=" : "Active_SecondaryBalance=";
                 int fourthL = fourth.Length;
-                var fifth = "Inactive_SecondaryBalance=";
+                var fifth = isOfficial ? "inactiveColorBalance=" : "Inactive_SecondaryBalance=";
                 int fifthL = fifth.Length;
-                var sixth = "Active_BlurBalance=";
+                var sixth = isOfficial ? "activeBlurBalance=" : "Active_BlurBalance=";
                 int sixthL = sixth.Length;
-                var seventh = "Inactive_BlurBalance=";
+                var seventh = isOfficial ? "inactiveBlurBalance=" : "Inactive_BlurBalance=";
                 int seventhL = seventh.Length;
 
                 if (line.ToLower().StartsWith(first.ToLower()) && long.TryParse(line.Substring(firstL), out _))
                 {
                     string color = long.Parse(line.Substring(firstL)).ToString("X8");
 
+                    label5.Enabled = A1.Enabled = isOfficial;
+                    if (A1.Enabled)
+                        A1.Value = int.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber) / 255 * 100;
+
                     B.Value = int.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
                     G.Value = int.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
                     R.Value = int.Parse(color.Substring(6), System.Globalization.NumberStyles.HexNumber);
+                }
+
+                else if (line.ToLower().StartsWith(first1.ToLower()) && long.TryParse(line.Substring(first1L), out _) && isOfficial)
+                {
+                    label6.Enabled = A2.Enabled = true;
+                    string color = long.Parse(line.Substring(first1L)).ToString("X8");
+                    A2.Value = int.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber) / 255 * 100;
                 }
 
                 else if (line.ToLower().StartsWith(second.ToLower()) && long.TryParse(line.Substring(secondL), out _))
                 {
                     string color = long.Parse(line.Substring(secondL)).ToString("X8");
 
+                    label11.Enabled = A3.Enabled = isOfficial && !checkBox1.Checked;
+                    if (A3.Enabled)
+                        A3.Value = Convert.ToInt32(color.Substring(0, 2), 16) / 255m * 100m;
+
                     B2.Value = int.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
                     G2.Value = int.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
                     R2.Value = int.Parse(color.Substring(6), System.Globalization.NumberStyles.HexNumber);
                 }
 
+                else if (line.ToLower().StartsWith(second1.ToLower()) && long.TryParse(line.Substring(second1L), out _) && isOfficial)
+                {
+                    label12.Enabled = A4.Enabled = !checkBox1.Checked;
+                    string color = long.Parse(line.Substring(second1L)).ToString("X8");
+                    A4.Value = Convert.ToInt32(color.Substring(0, 2), 16) / 255m * 100m;
+                }
+
                 else if (line.ToLower().StartsWith(third.ToLower()))
                 {
-                    A.Value = Convert.ToInt32(GetDouble(line, thirdL) * 100);
+                    if (isOfficial)
+                    {
+                        checkBox2.Enabled = true;
+                        checkBox2.Checked = !line.ToLower().Contains("time=0");
+                    }
+                    else
+                    {
+                        groupBox3.Enabled = true;
+                        A.Value = Convert.ToInt32(GetDouble(line, thirdL) * 100);
+                    }
                 }
 
                 else if (line.ToLower().StartsWith(fourth.ToLower()))
                 {
+                    groupBox4.Enabled = true;
                     SA1.Value = Convert.ToInt32(GetDouble(line, fourthL) * 1000);
                 }
 
                 else if (line.ToLower().StartsWith(fifth.ToLower()))
                 {
+                    groupBox5.Enabled = true;
                     SA2.Value = Convert.ToInt32(GetDouble(line, fifthL) * 1000);
                 }
 
                 else if (line.ToLower().StartsWith(sixth.ToLower()))
                 {
+                    groupBox6.Enabled = true;
                     BA1.Value = Convert.ToInt32(GetDouble(line, sixthL) * 1000);
                 }
 
                 else if (line.ToLower().StartsWith(seventh.ToLower()))
                 {
+                    groupBox7.Enabled = true;
                     BA2.Value = Convert.ToInt32(GetDouble(line, seventhL) * 1000);
                 }
             }
@@ -138,15 +179,31 @@ namespace DWMBGConfigEditor
         {
             // Create new color value
             // *************
-            string hex = ToHex(255) + ToHex((int)B.Value) + ToHex((int)G.Value) + ToHex((int)R.Value);
-            string hex2 = ToHex(255) + ToHex((int)B2.Value) + ToHex((int)G2.Value) + ToHex((int)R2.Value);
-            IDictionary<string, string> newValues = new Dictionary<string, string>
+            string hex1 = ToHex((int)A1.Value / 100 * 255) + ToHex((int)B.Value) + ToHex((int)G.Value) + ToHex((int)R.Value);
+            string hex2 = ToHex((int)A2.Value / 100 * 255) + ToHex((int)B.Value) + ToHex((int)G.Value) + ToHex((int)R.Value);
+            string hex3 = ToHex((int)A3.Value / 100 * 255) + ToHex((int)B2.Value) + ToHex((int)G2.Value) + ToHex((int)R2.Value);
+            string hex4 = ToHex((int)A4.Value / 100 * 255) + ToHex((int)B2.Value) + ToHex((int)G2.Value) + ToHex((int)R2.Value);
+
+            IDictionary<string, string> newValues = isOfficial ?
+                new Dictionary<string, string>
             {
-                { "activeBlendColor=", long.Parse(hex, System.Globalization.NumberStyles.HexNumber).ToString() },
-                { "inactiveBlendColor=", long.Parse(hex, System.Globalization.NumberStyles.HexNumber).ToString() },
-                { "activeBlendColorDark=", long.Parse(hex2, System.Globalization.NumberStyles.HexNumber).ToString() },
-                { "inactiveBlendColorDark=", long.Parse(hex, System.Globalization.NumberStyles.HexNumber).ToString() },
-                { "PrimaryBalance=", numericUpDown1.Value + " 		; Controls normal layer opacity. If you turn this up to 1 the window will be fully opaque, for example. Ranges from 0 to 1" }, // 
+                { "activeBlendColor=", long.Parse(hex1, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "inactiveBlendColor=", long.Parse(hex2, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "activeBlendColorDark=", long.Parse(hex3, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "inactiveBlendColorDark=", long.Parse(hex4, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "crossfadeTime=", checkBox2.Checked ? "87" : "0" },
+                { "activeColorBalance=", numericUpDown2.Value.ToString() },
+                { "inactiveColorBalance=", numericUpDown3.Value.ToString() },
+                { "activeBlurBalance=", numericUpDown4.Value.ToString() },
+                { "inactiveBlurBalance=", numericUpDown5.Value.ToString() },
+            }
+                : new Dictionary<string, string>
+            {
+                { "activeBlendColor=", long.Parse(hex1, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "inactiveBlendColor=", long.Parse(hex2, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "activeBlendColorDark=", long.Parse(hex3, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "inactiveBlendColorDark=", long.Parse(hex4, System.Globalization.NumberStyles.HexNumber).ToString() },
+                { "PrimaryBalance=", numericUpDown1.Value + " 		; Controls normal layer opacity. If you turn this up to 1 the window will be fully opaque, for example. Ranges from 0 to 1" },
                 { "Active_SecondaryBalance=", numericUpDown2.Value + "	; Controls the multiply layer intensity for active windows. Ranges from 0 to 1." },
                 { "Inactive_SecondaryBalance=", numericUpDown3.Value + "	; Controls the multiply layer intensity for inactive windows. Ranges from 0 to 1." },
                 { "Active_BlurBalance=", numericUpDown4.Value + "	; Controls \"overexposure\" effect for active windows. Ranges from -1 to 1" },
@@ -204,16 +261,17 @@ namespace DWMBGConfigEditor
 
             // Restart
             // *************
-            bool restart = Default.DWMBG_AutoRestart ? Default.DWMBG_AutoRestart : MessageBox.Show("Restart DWMBlurGlass?", button0.Text, MessageBoxButtons.YesNo) == DialogResult.Yes;
+            bool restart = Default.DWMBG_AutoRestart ? Default.DWMBG_AutoRestart : MessageBox.Show($"Restart DWMBlurGlass{(isOfficial ? " and the DWM service" : "")}?", button0.Text, MessageBoxButtons.YesNo) == DialogResult.Yes;
             // bool kill = MessageBox.Show("Do you also want to kill all DWM processes?", "Save", MessageBoxButtons.YesNo) == DialogResult.Yes;
 
             if (restart)
             {
-                using (Process p = Process.Start(Path.Combine(Default.DWMBG_Directory, "DWMBlurGlass.exe"), "unloaddll")) p.WaitForExit();
-
-                /* if (kill)
+                if (isOfficial /* || kill */)
                     foreach (var item in Process.GetProcessesByName("dwm"))
-                        item.Kill(); */
+                        item.Kill();
+                if (!isOfficial) using (Process p = Process.Start(Path.Combine(Default.DWMBG_Directory, "DWMBlurGlass.exe"), "unloaddll")) p.WaitForExit();
+
+                System.Threading.Thread.Sleep(1000);
 
                 using (Process p = Process.Start(Path.Combine(Default.DWMBG_Directory, "DWMBlurGlass.exe"), "loaddll")) p.WaitForExit();
             }
@@ -223,14 +281,28 @@ namespace DWMBGConfigEditor
 
         private bool CheckValidity(string path = null)
         {
+            label5.Enabled = label11.Enabled = A1.Enabled = A2.Enabled = A3.Enabled = A4.Enabled = label6.Enabled = label12.Enabled = A2.Enabled = checkBox2.Checked = checkBox2.Enabled = groupBox3.Enabled = false;
+            A1.Value = A2.Value = A3.Value = A4.Value = 100;
+            numericUpDown1.Value = 0;
+
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path)) path = Environment.CurrentDirectory;
 
             bool valid = false;
             bool exists = File.Exists(Path.Combine(path, "DWMBlurGlass.exe")) && File.Exists(Path.Combine(path, "data\\config.ini"));
             if (exists)
                 foreach (string line in File.ReadAllLines(Path.Combine(path, "data\\config.ini")))
-                    if (line.ToLower().Contains("primarybalance") || line.ToLower().Contains("active_blurbalance"))
+                {
+                    if (line.ToLower().Contains("activecolorbalance") || line.ToLower().Contains("activeblurbalance"))
+                    {
                         valid = true;
+                        isOfficial = true;
+                    }
+                    else if (line.ToLower().Contains("primarybalance") || line.ToLower().Contains("active_blurbalance"))
+                    {
+                        valid = true;
+                        isOfficial = false;
+                    }
+                }
 
             if (valid) { Default.DWMBG_Directory = path; Default.Save(); }
 
@@ -239,12 +311,16 @@ namespace DWMBGConfigEditor
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            groupBox2.Enabled = !checkBox1.Checked;
-            if (!groupBox2.Enabled)
+            label10.Enabled = label9.Enabled = label8.Enabled = R2.Enabled = G2.Enabled = B2.Enabled = !checkBox1.Checked;
+            if (isOfficial) label12.Enabled = label11.Enabled = A3.Enabled = A4.Enabled = !checkBox1.Checked;
+
+            if (!checkBox1.Checked)
             {
                 R2.Value = R.Value;
                 G2.Value = G.Value;
                 B2.Value = B.Value;
+                A3.Value = A1.Value;
+                A4.Value = A2.Value;
             }
         }
 
@@ -264,16 +340,19 @@ namespace DWMBGConfigEditor
 
         private void ChangeColorValue(object sender, EventArgs e)
         {
-            if (!groupBox2.Enabled)
+            if (!R2.Enabled || !G2.Enabled || !B2.Enabled)
             {
                 R2.Value = R.Value;
                 G2.Value = G.Value;
                 B2.Value = B.Value;
+                A3.Value = A1.Value;
+                A4.Value = A2.Value;
             }
 
-            decimal alpha = (numericUpDown1.Value + (numericUpDown2.Value / 2)) / 1.5m * 255m;
-            panel1.BackColor = Color.FromArgb(Convert.ToInt32(Math.Round(alpha)), (int)R.Value, (int)G.Value, (int)B.Value);
-            panel4.BackColor = Color.FromArgb(Convert.ToInt32(Math.Round(alpha)), (int)R2.Value, (int)G2.Value, (int)B2.Value);
+            decimal alpha1 = ((isOfficial ? A1.Value / 100 : numericUpDown1.Value) + (numericUpDown2.Value / 2)) / 1.5m * 255m;
+            decimal alpha2 = ((isOfficial ? A3.Value / 100 : numericUpDown1.Value) + (numericUpDown2.Value / 2)) / 1.5m * 255m;
+            panel1.BackColor = Color.FromArgb(Convert.ToInt32(Math.Round(alpha1)), (int)R.Value, (int)G.Value, (int)B.Value);
+            panel4.BackColor = Color.FromArgb(Convert.ToInt32(Math.Round(alpha2)), (int)R2.Value, (int)G2.Value, (int)B2.Value);
 
             if (sender == A)
                 numericUpDown1.Value = A.Value / 100m;
@@ -316,7 +395,7 @@ namespace DWMBGConfigEditor
         {
             using (TaskService ts = new TaskService())
             {
-                string name = "DWMBlurGlass Fork";
+                string name = "DWMBlurGlass_Extend";
 
                 if (sender == button3)
                 {
@@ -343,7 +422,7 @@ namespace DWMBGConfigEditor
                         MessageBox.Show("Successfully installed DMWBlurGlass as a task to run at logon.", button3.Text);
                     }
 
-                    else MessageBox.Show("DWMBlurGlass has already been installed as a task.", button3.Text);
+                    else MessageBox.Show("DWMBlurGlass has already been installed as a task, either from the official GUI or from this configurator.", button3.Text);
                 }
 
                 else if (sender == button4)
@@ -477,6 +556,7 @@ namespace DWMBGConfigEditor
                     break;
             }
 
+            if (!groupBox3.Enabled || isOfficial) numericUpDown1.Value = 0;
             tabControl1.SelectedTab = tabPage1;
         }
     }
