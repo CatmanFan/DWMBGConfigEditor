@@ -8,7 +8,7 @@
     <Setting Name="DWMBG_AutoRestart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ChangeStartIsBack" Type="System.Boolean" Scope="User">
+    <Setting Name="StartIsBack_Change" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LinkBothColorsAutomatically" Type="System.Boolean" Scope="User">
@@ -19,6 +19,12 @@
     </Setting>
     <Setting Name="Explorer_AutoRestart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StartIsBack_Opacity" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="StartIsBack_Blur" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

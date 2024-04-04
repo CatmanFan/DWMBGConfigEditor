@@ -23,6 +23,8 @@ namespace DWMBGConfigEditor
         public Form1()
         {
             InitializeComponent();
+            groupBox8.Enabled = Registry.CurrentUser.OpenSubKey("SOFTWARE\\StartIsBack", true) != null;
+            if (!groupBox8.Enabled) groupBox8.Text = "StartIsBack++ (not installed/detected)";
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -37,9 +39,12 @@ namespace DWMBGConfigEditor
             checkBox3.Checked = Default.DWMBG_AutoRestart;
             checkBox4.Checked = Default.DWM_AutoRestart;
             checkBox5.Checked = Default.Explorer_AutoRestart;
-            checkBox7.Checked = Default.ChangeStartIsBack;
+            checkBox7.Checked = Default.StartIsBack_Change;
+            numericUpDown6.Value = Default.StartIsBack_Opacity;
+            comboBox2.SelectedIndex = Default.StartIsBack_Blur;
 
             comboBox1.SelectedIndex = 0;
+            label7.Enabled = label13.Enabled = numericUpDown6.Enabled = comboBox2.Enabled = checkBox7.Checked;
         }
 
         private void button2_Click(object sender, EventArgs e) => SearchFolder();
@@ -244,7 +249,7 @@ namespace DWMBGConfigEditor
             // *************
             bool sib = false;
 
-            if (Default.ChangeStartIsBack)
+            if (Default.StartIsBack_Change && groupBox8.Enabled)
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\StartIsBack", true))
                 {
                     if (key != null)  // Must check for null key
@@ -255,14 +260,17 @@ namespace DWMBGConfigEditor
                         p.Item3 = Math.Max(1, p.Item3 - 1);
 
                         string colorHex = "0x00" + ToHex(p.Item3) + ToHex(p.Item2) + ToHex(p.Item1);
-                        string alphaHex = ToHex(Math.Round((numericUpDown1.Value + (numericUpDown2.Value / 2)) / 1.5m * 255m)).ToLower();
                         var colorUint32 = Convert.ToUInt32(colorHex, 16);
+
+                        string alphaHex = ToHex(Math.Round(Default.StartIsBack_Opacity / 100 * 255m));
                         var alphaUint32 = Convert.ToUInt32(alphaHex, 16);
 
                         key.SetValue("StartMenuColor", colorUint32, RegistryValueKind.DWord);
                         key.SetValue("TaskbarColor", colorUint32, RegistryValueKind.DWord);
                         key.SetValue("StartMenuAlpha", alphaUint32, RegistryValueKind.DWord);
                         key.SetValue("TaskbarAlpha", alphaUint32, RegistryValueKind.DWord);
+                        key.SetValue("StartMenuBlur", Default.StartIsBack_Blur, RegistryValueKind.DWord);
+                        key.SetValue("TaskbarBlur", Default.StartIsBack_Blur, RegistryValueKind.DWord);
 
                         sib = true;
                     }
@@ -586,7 +594,21 @@ namespace DWMBGConfigEditor
             Default.DWMBG_AutoRestart = checkBox3.Checked;
             Default.DWM_AutoRestart = checkBox4.Checked;
             Default.Explorer_AutoRestart = checkBox5.Checked;
-            Default.ChangeStartIsBack = checkBox7.Checked;
+            Default.StartIsBack_Change = checkBox7.Checked;
+            Default.Save();
+
+            label7.Enabled = label13.Enabled = numericUpDown6.Enabled = comboBox2.Enabled = checkBox7.Checked;
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            Default.StartIsBack_Opacity = (int)numericUpDown6.Value;
+            Default.Save();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Default.StartIsBack_Blur = comboBox2.SelectedIndex;
             Default.Save();
         }
     }

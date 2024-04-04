@@ -50,12 +50,12 @@ namespace DWMBGConfigEditor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ChangeStartIsBack {
+        public bool StartIsBack_Change {
             get {
-                return ((bool)(this["ChangeStartIsBack"]));
+                return ((bool)(this["StartIsBack_Change"]));
             }
             set {
-                this["ChangeStartIsBack"] = value;
+                this["StartIsBack_Change"] = value;
             }
         }
         
@@ -92,6 +92,30 @@ namespace DWMBGConfigEditor.Properties {
             }
             set {
                 this["Explorer_AutoRestart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int StartIsBack_Opacity {
+            get {
+                return ((int)(this["StartIsBack_Opacity"]));
+            }
+            set {
+                this["StartIsBack_Opacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int StartIsBack_Blur {
+            get {
+                return ((int)(this["StartIsBack_Blur"]));
+            }
+            set {
+                this["StartIsBack_Blur"] = value;
             }
         }
     }

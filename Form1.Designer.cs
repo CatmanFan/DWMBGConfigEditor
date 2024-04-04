@@ -91,6 +91,11 @@ namespace DWMBGConfigEditor
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.A2)).BeginInit();
@@ -124,6 +129,8 @@ namespace DWMBGConfigEditor
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -817,7 +824,7 @@ namespace DWMBGConfigEditor
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.checkBox7);
+            this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.checkBox5);
             this.tabPage4.Controls.Add(this.checkBox4);
             this.tabPage4.Controls.Add(this.checkBox3);
@@ -865,13 +872,67 @@ namespace DWMBGConfigEditor
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(16, 87);
+            this.checkBox7.Location = new System.Drawing.Point(11, 21);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(229, 17);
+            this.checkBox7.Size = new System.Drawing.Size(155, 17);
             this.checkBox7.TabIndex = 4;
-            this.checkBox7.Text = "Change StartIsBack++ color automatically";
+            this.checkBox7.Text = "Change color automatically";
             this.checkBox7.UseVisualStyleBackColor = true;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.Settings_CheckedChanged);
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(156, 44);
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(86, 21);
+            this.numericUpDown6.TabIndex = 5;
+            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(142, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "StartIsBack++ opacity (%):";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label13);
+            this.groupBox8.Controls.Add(this.comboBox2);
+            this.groupBox8.Controls.Add(this.label7);
+            this.groupBox8.Controls.Add(this.checkBox7);
+            this.groupBox8.Controls.Add(this.numericUpDown6);
+            this.groupBox8.Location = new System.Drawing.Point(16, 87);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(451, 104);
+            this.groupBox8.TabIndex = 7;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "StartIsBack++";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Clear",
+            "Blur",
+            "Acrylic"});
+            this.comboBox2.Location = new System.Drawing.Point(156, 71);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 7;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(92, 74);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Blur mode:";
             // 
             // Form1
             // 
@@ -930,6 +991,9 @@ namespace DWMBGConfigEditor
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -997,6 +1061,11 @@ namespace DWMBGConfigEditor
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 
