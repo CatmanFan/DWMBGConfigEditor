@@ -37,7 +37,7 @@ namespace DWMBGConfigEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DWMBG_AutoRestart {
             get {
                 return ((bool)(this["DWMBG_AutoRestart"]));
@@ -49,7 +49,7 @@ namespace DWMBGConfigEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ChangeStartIsBack {
             get {
                 return ((bool)(this["ChangeStartIsBack"]));
@@ -68,6 +68,30 @@ namespace DWMBGConfigEditor.Properties {
             }
             set {
                 this["LinkBothColorsAutomatically"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DWM_AutoRestart {
+            get {
+                return ((bool)(this["DWM_AutoRestart"]));
+            }
+            set {
+                this["DWM_AutoRestart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Explorer_AutoRestart {
+            get {
+                return ((bool)(this["Explorer_AutoRestart"]));
+            }
+            set {
+                this["Explorer_AutoRestart"] = value;
             }
         }
     }

@@ -27,13 +27,18 @@ namespace DWMBGConfigEditor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (!CheckValidity(Default.DWMBG_Directory))
-                if (!CheckValidity())
-                    if (!SearchFolder()) Application.Exit();
+            while (!CheckValidity(Default.DWMBG_Directory))
+            {
+                if (!SearchFolder()) Application.Exit();
+            }
 
             GetColor();
             checkBox1.Checked = Default.LinkBothColorsAutomatically;
-            
+            checkBox3.Checked = Default.DWMBG_AutoRestart;
+            checkBox4.Checked = Default.DWM_AutoRestart;
+            checkBox5.Checked = Default.Explorer_AutoRestart;
+            checkBox7.Checked = Default.ChangeStartIsBack;
+
             comboBox1.SelectedIndex = 0;
         }
 
@@ -157,6 +162,8 @@ namespace DWMBGConfigEditor
                     groupBox7.Enabled = true;
                     BA2.Value = Convert.ToInt32(GetDouble(line, seventhL) * 1000);
                 }
+
+                checkBox3.Enabled = !isOfficial;
             }
         }
 
@@ -235,9 +242,9 @@ namespace DWMBGConfigEditor
 
             // Also change StartIsBack++ value
             // *************
-            bool sib = Default.ChangeStartIsBack ? Default.ChangeStartIsBack
-                     : Registry.CurrentUser.OpenSubKey("SOFTWARE\\StartIsBack", true) != null ? MessageBox.Show("Do you also want to set the StartIsBack++ taskbar and start menu colors to the light window color?", button0.Text, MessageBoxButtons.YesNo) == DialogResult.Yes : false;
-            if (sib)
+            bool sib = false;
+
+            if (Default.ChangeStartIsBack)
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\StartIsBack", true))
                 {
                     if (key != null)  // Must check for null key
@@ -256,19 +263,19 @@ namespace DWMBGConfigEditor
                         key.SetValue("TaskbarColor", colorUint32, RegistryValueKind.DWord);
                         key.SetValue("StartMenuAlpha", alphaUint32, RegistryValueKind.DWord);
                         key.SetValue("TaskbarAlpha", alphaUint32, RegistryValueKind.DWord);
+
+                        sib = true;
                     }
                 }
 
             // Restart
             // *************
-            bool restart = Default.DWMBG_AutoRestart ? Default.DWMBG_AutoRestart : MessageBox.Show($"Restart DWMBlurGlass{(isOfficial ? " and the DWM service" : "")}?", button0.Text, MessageBoxButtons.YesNo) == DialogResult.Yes;
-            // bool kill = MessageBox.Show("Do you also want to kill all DWM processes?", "Save", MessageBoxButtons.YesNo) == DialogResult.Yes;
+            if (Default.DWM_AutoRestart)
+                foreach (var item in Process.GetProcessesByName("dwm"))
+                    item.Kill();
 
-            if (restart)
+            if (Default.DWMBG_AutoRestart || Default.DWM_AutoRestart)
             {
-                if (isOfficial /* || kill */)
-                    foreach (var item in Process.GetProcessesByName("dwm"))
-                        item.Kill();
                 if (!isOfficial) using (Process p = Process.Start(Path.Combine(Default.DWMBG_Directory, "DWMBlurGlass.exe"), "unloaddll")) p.WaitForExit();
 
                 System.Threading.Thread.Sleep(1000);
@@ -276,20 +283,30 @@ namespace DWMBGConfigEditor
                 using (Process p = Process.Start(Path.Combine(Default.DWMBG_Directory, "DWMBlurGlass.exe"), "loaddll")) p.WaitForExit();
             }
 
-            if (sib && Default.ChangeStartIsBack) MessageBox.Show("StartIsBack++ color settings have been detected and changed.\n\nYou may need to apply its configuration again manually or restart Explorer for full changes to take effect.", button0.Text);
+            if (sib && !Default.Explorer_AutoRestart) MessageBox.Show("StartIsBack++ color settings have been detected and changed.\n\nYou may need to apply its configuration again manually or restart Explorer for full changes to take effect.", button0.Text);
+
+            if (Default.Explorer_AutoRestart)
+            {
+                foreach (var item in Process.GetProcessesByName("explorer"))
+                    item.Kill();
+                Process.Start(@"C:\Windows\explorer.exe");
+            }
         }
 
-        private bool CheckValidity(string path = null)
+        private bool CheckValidity(string input = null)
         {
+            #region Visual buttons
             label5.Enabled = label11.Enabled = A1.Enabled = A2.Enabled = A3.Enabled = A4.Enabled = label6.Enabled = label12.Enabled = A2.Enabled = checkBox2.Checked = checkBox2.Enabled = groupBox3.Enabled = false;
             A1.Value = A2.Value = A3.Value = A4.Value = 100;
             numericUpDown1.Value = 0;
+            checkBox3.Enabled = false;
+            #endregion
 
-            if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path)) path = Environment.CurrentDirectory;
+            string path = Directory.Exists(input) ? input : Environment.CurrentDirectory;
 
             bool valid = false;
-            bool exists = File.Exists(Path.Combine(path, "DWMBlurGlass.exe")) && File.Exists(Path.Combine(path, "data\\config.ini"));
-            if (exists)
+
+            if (File.Exists(Path.Combine(path, "DWMBlurGlass.exe")) && File.Exists(Path.Combine(path, "data\\config.ini")))
                 foreach (string line in File.ReadAllLines(Path.Combine(path, "data\\config.ini")))
                 {
                     if (line.ToLower().Contains("activecolorbalance") || line.ToLower().Contains("activeblurbalance"))
@@ -322,6 +339,9 @@ namespace DWMBGConfigEditor
                 A3.Value = A1.Value;
                 A4.Value = A2.Value;
             }
+
+            Default.LinkBothColorsAutomatically = checkBox1.Checked;
+            Default.Save();
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -558,6 +578,16 @@ namespace DWMBGConfigEditor
 
             if (!groupBox3.Enabled || isOfficial) numericUpDown1.Value = 0;
             tabControl1.SelectedTab = tabPage1;
+        }
+
+        private void Settings_CheckedChanged(object sender, EventArgs e)
+        {
+            Default.LinkBothColorsAutomatically = checkBox1.Checked;
+            Default.DWMBG_AutoRestart = checkBox3.Checked;
+            Default.DWM_AutoRestart = checkBox4.Checked;
+            Default.Explorer_AutoRestart = checkBox5.Checked;
+            Default.ChangeStartIsBack = checkBox7.Checked;
+            Default.Save();
         }
     }
 }

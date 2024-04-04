@@ -36,6 +36,10 @@ namespace DWMBGConfigEditor
             this.label3 = new System.Windows.Forms.Label();
             this.A = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.A2 = new System.Windows.Forms.NumericUpDown();
+            this.A1 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.B = new System.Windows.Forms.NumericUpDown();
             this.G = new System.Windows.Forms.NumericUpDown();
             this.R = new System.Windows.Forms.NumericUpDown();
@@ -48,9 +52,13 @@ namespace DWMBGConfigEditor
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.A4 = new System.Windows.Forms.NumericUpDown();
             this.B2 = new System.Windows.Forms.NumericUpDown();
+            this.A3 = new System.Windows.Forms.NumericUpDown();
             this.G2 = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.R2 = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -73,27 +81,28 @@ namespace DWMBGConfigEditor
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SetPreset = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.A2 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.A1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.A4 = new System.Windows.Forms.NumericUpDown();
-            this.A3 = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.A)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.A2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.A1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.B)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.A4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.B2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.A3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R2)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -114,10 +123,7 @@ namespace DWMBGConfigEditor
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.A2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A3)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -185,6 +191,54 @@ namespace DWMBGConfigEditor
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Light window color";
+            // 
+            // A2
+            // 
+            this.A2.Enabled = false;
+            this.A2.Location = new System.Drawing.Point(116, 138);
+            this.A2.Name = "A2";
+            this.A2.Size = new System.Drawing.Size(49, 21);
+            this.A2.TabIndex = 10;
+            this.A2.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.A2.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            // 
+            // A1
+            // 
+            this.A1.Enabled = false;
+            this.A1.Location = new System.Drawing.Point(116, 111);
+            this.A1.Name = "A1";
+            this.A1.Size = new System.Drawing.Size(49, 21);
+            this.A1.TabIndex = 12;
+            this.A1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.A1.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Enabled = false;
+            this.label6.Location = new System.Drawing.Point(12, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(98, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Inactive opacity %";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Enabled = false;
+            this.label5.Location = new System.Drawing.Point(12, 113);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Active opacity %";
             // 
             // B
             // 
@@ -322,6 +376,20 @@ namespace DWMBGConfigEditor
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dark window color";
             // 
+            // A4
+            // 
+            this.A4.Enabled = false;
+            this.A4.Location = new System.Drawing.Point(116, 138);
+            this.A4.Name = "A4";
+            this.A4.Size = new System.Drawing.Size(49, 21);
+            this.A4.TabIndex = 14;
+            this.A4.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.A4.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            // 
             // B2
             // 
             this.B2.Location = new System.Drawing.Point(33, 81);
@@ -334,6 +402,20 @@ namespace DWMBGConfigEditor
             this.B2.Size = new System.Drawing.Size(49, 21);
             this.B2.TabIndex = 8;
             this.B2.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            // 
+            // A3
+            // 
+            this.A3.Enabled = false;
+            this.A3.Location = new System.Drawing.Point(116, 111);
+            this.A3.Name = "A3";
+            this.A3.Size = new System.Drawing.Size(49, 21);
+            this.A3.TabIndex = 16;
+            this.A3.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.A3.ValueChanged += new System.EventHandler(this.ChangeColorValue);
             // 
             // G2
             // 
@@ -348,6 +430,16 @@ namespace DWMBGConfigEditor
             this.G2.TabIndex = 7;
             this.G2.ValueChanged += new System.EventHandler(this.ChangeColorValue);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Enabled = false;
+            this.label12.Location = new System.Drawing.Point(12, 140);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 13);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Inactive opacity %";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -356,6 +448,16 @@ namespace DWMBGConfigEditor
             this.label8.Size = new System.Drawing.Size(13, 13);
             this.label8.TabIndex = 2;
             this.label8.Text = "B";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Enabled = false;
+            this.label11.Location = new System.Drawing.Point(12, 113);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(89, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Active opacity %";
             // 
             // R2
             // 
@@ -606,6 +708,7 @@ namespace DWMBGConfigEditor
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -642,6 +745,17 @@ namespace DWMBGConfigEditor
             this.tabPage2.Text = "Opacity";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(21, 311);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(108, 17);
+            this.checkBox2.TabIndex = 13;
+            this.checkBox2.Text = "Enable crossfade";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label4);
@@ -658,7 +772,7 @@ namespace DWMBGConfigEditor
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 10);
+            this.label4.Location = new System.Drawing.Point(10, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(441, 13);
             this.label4.TabIndex = 2;
@@ -701,112 +815,63 @@ namespace DWMBGConfigEditor
             this.SetPreset.UseVisualStyleBackColor = true;
             this.SetPreset.Click += new System.EventHandler(this.SetPreset_Click);
             // 
-            // checkBox2
+            // tabPage4
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(21, 311);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(108, 17);
-            this.checkBox2.TabIndex = 13;
-            this.checkBox2.Text = "Enable crossfade";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.tabPage4.Controls.Add(this.checkBox7);
+            this.tabPage4.Controls.Add(this.checkBox5);
+            this.tabPage4.Controls.Add(this.checkBox4);
+            this.tabPage4.Controls.Add(this.checkBox3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(482, 344);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Additional settings";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // A2
+            // checkBox3
             // 
-            this.A2.Enabled = false;
-            this.A2.Location = new System.Drawing.Point(116, 138);
-            this.A2.Name = "A2";
-            this.A2.Size = new System.Drawing.Size(49, 21);
-            this.A2.TabIndex = 10;
-            this.A2.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.A2.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(16, 18);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(157, 17);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Text = "Auto-restart DWMBlurGlass";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.Settings_CheckedChanged);
             // 
-            // label5
+            // checkBox4
             // 
-            this.label5.AutoSize = true;
-            this.label5.Enabled = false;
-            this.label5.Location = new System.Drawing.Point(12, 113);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Active opacity %";
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(16, 41);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(233, 17);
+            this.checkBox4.TabIndex = 1;
+            this.checkBox4.Text = "Auto-restart the Desktop Window Manager";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.Settings_CheckedChanged);
             // 
-            // A1
+            // checkBox5
             // 
-            this.A1.Enabled = false;
-            this.A1.Location = new System.Drawing.Point(116, 111);
-            this.A1.Name = "A1";
-            this.A1.Size = new System.Drawing.Size(49, 21);
-            this.A1.TabIndex = 12;
-            this.A1.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.A1.ValueChanged += new System.EventHandler(this.ChangeColorValue);
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(16, 64);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(175, 17);
+            this.checkBox5.TabIndex = 2;
+            this.checkBox5.Text = "Auto-restart Windows Explorer";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.Settings_CheckedChanged);
             // 
-            // label6
+            // checkBox7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Enabled = false;
-            this.label6.Location = new System.Drawing.Point(12, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Inactive opacity %";
-            // 
-            // A4
-            // 
-            this.A4.Enabled = false;
-            this.A4.Location = new System.Drawing.Point(116, 138);
-            this.A4.Name = "A4";
-            this.A4.Size = new System.Drawing.Size(49, 21);
-            this.A4.TabIndex = 14;
-            this.A4.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.A4.ValueChanged += new System.EventHandler(this.ChangeColorValue);
-            // 
-            // A3
-            // 
-            this.A3.Enabled = false;
-            this.A3.Location = new System.Drawing.Point(116, 111);
-            this.A3.Name = "A3";
-            this.A3.Size = new System.Drawing.Size(49, 21);
-            this.A3.TabIndex = 16;
-            this.A3.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.A3.ValueChanged += new System.EventHandler(this.ChangeColorValue);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Enabled = false;
-            this.label12.Location = new System.Drawing.Point(12, 140);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 13);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Inactive opacity %";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Enabled = false;
-            this.label11.Location = new System.Drawing.Point(12, 113);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(89, 13);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Active opacity %";
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(16, 87);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(229, 17);
+            this.checkBox7.TabIndex = 4;
+            this.checkBox7.Text = "Change StartIsBack++ color automatically";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.Settings_CheckedChanged);
             // 
             // Form1
             // 
@@ -829,13 +894,17 @@ namespace DWMBGConfigEditor
             ((System.ComponentModel.ISupportInitialize)(this.A)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.A2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.A1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.B)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.G)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R)).EndInit();
             this.panel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.A4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.B2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.A3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.G2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R2)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -859,10 +928,8 @@ namespace DWMBGConfigEditor
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.A2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.A3)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -925,6 +992,11 @@ namespace DWMBGConfigEditor
         private System.Windows.Forms.NumericUpDown A3;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox7;
     }
 }
 
